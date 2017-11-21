@@ -160,6 +160,9 @@ export default {
       default: 'year'
     }
   },
+  created () {
+    console.log('This is a test from cassiop-date-picker')
+  },
   data () {
     const startDate = this.openDate ? new Date(this.openDate) : new Date()
     return {
