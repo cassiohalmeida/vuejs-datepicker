@@ -54,7 +54,7 @@
                         v-bind:class="{ 'disabled' : isRtl ? previousMonthDisabled(pageTimestamp) : nextMonthDisabled(pageTimestamp) }">&gt;</span>
                 </header>
                 <div :class="isRtl ? 'flex-rtl' : ''">
-                  <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
+                  <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d.charAt(0) }}</span>
                   <template v-if="blankDays > 0">
                     <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span>
                   </template><!--
