@@ -492,7 +492,7 @@ export default {
       const previewDate = new Date(selected.timestamp)
       this.previewYear = this.currYear
       this.previewDayName = DateUtils.getDayNameAbbr(previewDate, this.translation.days)
-      this.previewMonth = this.currMonthName
+      this.previewMonth = DateUtils.getMonthNameAbbr(this.pageDate.getMonth(), this.translation.months.abbr)
       this.previewDay = previewDate.getDate()
     },
     clearPreview () {
