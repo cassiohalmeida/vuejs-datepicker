@@ -440,6 +440,7 @@ export default {
     setTempDate (timestamp) {
       const date = new Date(timestamp)
       this.selectedDate = new Date(date)
+      this.$emit('selected', new Date(date))
     },
     confirmDateSelected () {
       const date = this.selectedDate
