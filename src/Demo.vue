@@ -227,6 +227,14 @@
       </code>
     </div>
 
+    <div class="example">
+      <h3>With Ok and Cancel button</h3>
+      <datepicker :withButtons="false" :cancelLabel="'Cancel'" :confirmLabel="'Ok'" :initialView="'year'"></datepicker>
+      <code>
+        &lt;datepicker :minimumView="'month'" :maximumView="'year'" :initialView="'year'"&gt;&lt;/datepicker&gt;
+      </code>
+    </div>
+
   </div>
 </template>
 

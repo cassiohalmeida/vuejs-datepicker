@@ -58,6 +58,19 @@
                     v-bind:class="dayClasses(day)"
                     @click="selectDate(day)">{{ day.date }}</span>
               </div>
+              <div v-if="withButtons" class="vdp-datepicker__buttons-container">
+                <button
+                  @click="clearDate();close()"
+                  class="vdp-datepicker__cancel-button">{{ cancelLabel }}
+                </button>
+                <button
+                  :disabled="!selectedDate"
+                  @click="confirmDateSelected"
+                  :class="{'vdp-datepicker__confirm-button' : true,
+                    'vdp-datepicker__confirm-button--disabled' : !selectedDate}"
+                  class="vdp-datepicker__confirm-button">{{ confirmLabel }}
+                </button>
+              </div>
           </div>
         </template>
 
@@ -151,6 +164,15 @@ export default {
     initialView: String,
     disabledPicker: Boolean,
     required: Boolean,
+    withButtons: Boolean,
+    cancelLabel: {
+      type: String,
+      default: 'Cancel'
+    },
+    confirmLabel: {
+      type: String,
+      default: 'Ok'
+    },
     minimumView: {
       type: String,
       default: 'day'
@@ -159,9 +181,6 @@ export default {
       type: String,
       default: 'year'
     }
-  },
-  created () {
-    console.log('This is a test from cassiop-date-picker')
   },
   data () {
     const startDate = this.openDate ? new Date(this.openDate) : new Date()
@@ -418,6 +437,16 @@ export default {
       this.$emit('selected', new Date(date))
       this.$emit('input', new Date(date))
     },
+    setTempDate (timestamp) {
+      const date = new Date(timestamp)
+      this.selectedDate = new Date(date)
+    },
+    confirmDateSelected () {
+      const date = this.selectedDate
+      this.$emit('selected', new Date(date))
+      this.$emit('input', new Date(date))
+      this.close()
+    },
     clearDate () {
       this.selectedDate = null
       this.$emit('selected', null)
@@ -432,11 +461,15 @@ export default {
         this.$emit('selectedDisabled', day)
         return false
       }
-      this.setDate(day.timestamp)
-      if (this.isInline) {
-        this.showDayCalendar()
+      if (this.withButtons) {
+        this.setTempDate(day.timestamp)
       } else {
-        this.close()
+        this.setDate(day.timestamp)
+        if (this.isInline) {
+          this.showDayCalendar()
+        } else {
+          this.close()
+        }
       }
     },
     /**
@@ -867,6 +900,9 @@ $width = 300px
     text-align left
     *
         box-sizing border-box
+
+.vdp-datepicker__buttons-container
+    padding: 10px
 
 .vdp-datepicker__calendar
     position absolute
