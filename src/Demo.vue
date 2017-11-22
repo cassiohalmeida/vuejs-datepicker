@@ -229,7 +229,7 @@
 
     <div class="example">
       <h3>With Ok and Cancel button</h3>
-      <datepicker :withButtons="false" :cancelLabel="'Cancel'" :confirmLabel="'Ok'" :initialView="'year'"></datepicker>
+      <datepicker :withPreview="true" :withButtons="true" :cancelLabel="'Cancel'" :confirmLabel="'Ok'"></datepicker>
       <code>
         &lt;datepicker :minimumView="'month'" :maximumView="'year'" :initialView="'year'"&gt;&lt;/datepicker&gt;
       </code>

@@ -34,6 +34,12 @@
         <!-- Day View -->
         <template v-if="allowedToShowView('day')">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" v-bind:style="calendarStyle">
+              <div v-if="withPreview" class="vdp-datepicker__calendar-preview">
+                <span>{{ previewYear }} </span>
+                <span>{{ previewDayName }} </span>
+                <span>{{ previewMonth }} </span>
+                <span>{{ previewDay }} </span>
+              </div>
               <header>
                   <span
                       @click="isRtl ? nextMonth() : previousMonth()"
@@ -77,6 +83,12 @@
         <!-- Month View -->
         <template v-if="allowedToShowView('month')">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showMonthView" v-bind:style="calendarStyle">
+              <div v-if="withPreview" class="vdp-datepicker__calendar-preview">
+                <span>{{ previewYear }} </span>
+                <span>{{ previewDayName }} </span>
+                <span>{{ previewMonth }} </span>
+                <span>{{ previewDay }} </span>
+              </div>
               <header>
                   <span
                       @click="previousYear"
@@ -100,6 +112,12 @@
         <!-- Year View -->
         <template v-if="allowedToShowView('year')">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showYearView" v-bind:style="calendarStyle">
+              <div v-if="withPreview" class="vdp-datepicker__calendar-preview">
+                <span>{{ previewYear }} </span>
+                <span>{{ previewDayName }} </span>
+                <span>{{ previewMonth }} </span>
+                <span>{{ previewDay }} </span>
+              </div>
               <header>
                   <span @click="previousDecade" class="prev"
                       v-bind:class="{ 'disabled' : previousDecadeDisabled(pageTimestamp) }">&lt;</span>
@@ -165,6 +183,10 @@ export default {
     disabledPicker: Boolean,
     required: Boolean,
     withButtons: Boolean,
+    withPreview: {
+      type: Boolean,
+      default: false
+    },
     cancelLabel: {
       type: String,
       default: 'Cancel'
@@ -206,7 +228,12 @@ export default {
       /*
        * Positioning
        */
-      calendarHeight: 0
+      calendarHeight: 0,
+
+      previewYear: '',
+      previewMonth: '',
+      previewDay: '',
+      previewDayName: ''
     }
   },
   watch: {
@@ -450,9 +477,23 @@ export default {
     },
     clearDate () {
       this.selectedDate = null
+      this.clearPreview()
       this.$emit('selected', null)
       this.$emit('input', null)
       this.$emit('cleared')
+    },
+    updatePreview (selected) {
+      const previewDate = new Date(selected.timestamp)
+      this.previewYear = this.currYear
+      this.previewDayName = DateUtils.getDayNameAbbr(previewDate, this.translation.days)
+      this.previewMonth = this.currMonthName
+      this.previewDay = previewDate.getDate()
+    },
+    clearPreview () {
+      this.previewYear = ''
+      this.previewDayName = ''
+      this.previewMonth = ''
+      this.previewDay = ''
     },
     /**
      * @param {Object} day
@@ -464,6 +505,7 @@ export default {
       }
       if (this.withButtons) {
         this.setTempDate(day.timestamp)
+        this.updatePreview(day)
       } else {
         this.setDate(day.timestamp)
         if (this.isInline) {
