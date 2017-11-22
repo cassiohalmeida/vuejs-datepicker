@@ -40,42 +40,44 @@
                 <span>{{ previewMonth }} </span>
                 <span>{{ previewDay }} </span>
               </div>
-              <header>
-                  <span
-                      @click="isRtl ? nextMonth() : previousMonth()"
-                      class="prev"
-                      v-bind:class="{ 'disabled' : isRtl ? nextMonthDisabled(pageTimestamp) : previousMonthDisabled(pageTimestamp) }">&lt;</span>
-                  <span @click="showMonthCalendar" :class="allowedToShowView('month') ? 'up' : ''">{{ currMonthName }} {{ currYear }}
-                  </span>
-                  <span
-                      @click="isRtl ? previousMonth() : nextMonth()"
-                      class="next"
-                      v-bind:class="{ 'disabled' : isRtl ? previousMonthDisabled(pageTimestamp) : nextMonthDisabled(pageTimestamp) }">&gt;</span>
-              </header>
-              <div :class="isRtl ? 'flex-rtl' : ''">
-                <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
-                <template v-if="blankDays > 0">
-                  <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span>
-                </template><!--
-                --><span class="cell day"
-                    v-for="day in days"
-                    :key="day.timestamp"
-                    track-by="timestamp"
-                    v-bind:class="dayClasses(day)"
-                    @click="selectDate(day)">{{ day.date }}</span>
-              </div>
-              <div v-if="withButtons" class="vdp-datepicker__buttons-container">
-                <button
-                  @click="clearDate();close()"
-                  class="vdp-datepicker__cancel-button">{{ cancelLabel }}
-                </button>
-                <button
-                  :disabled="!selectedDate"
-                  @click="confirmDateSelected"
-                  :class="{'vdp-datepicker__confirm-button' : true,
-                    'vdp-datepicker__confirm-button--disabled' : !selectedDate}"
-                  class="vdp-datepicker__confirm-button">{{ confirmLabel }}
-                </button>
+              <div class="vdp-datepicker__calendar-container">
+                <header>
+                    <span
+                        @click="isRtl ? nextMonth() : previousMonth()"
+                        class="prev"
+                        v-bind:class="{ 'disabled' : isRtl ? nextMonthDisabled(pageTimestamp) : previousMonthDisabled(pageTimestamp) }">&lt;</span>
+                    <span @click="showMonthCalendar" :class="allowedToShowView('month') ? 'up' : ''">{{ currMonthName }} {{ currYear }}
+                    </span>
+                    <span
+                        @click="isRtl ? previousMonth() : nextMonth()"
+                        class="next"
+                        v-bind:class="{ 'disabled' : isRtl ? previousMonthDisabled(pageTimestamp) : nextMonthDisabled(pageTimestamp) }">&gt;</span>
+                </header>
+                <div :class="isRtl ? 'flex-rtl' : ''">
+                  <span class="cell day-header" v-for="d in daysOfWeek" :key="d.timestamp">{{ d }}</span>
+                  <template v-if="blankDays > 0">
+                    <span class="cell day blank" v-for="d in blankDays" :key="d.timestamp"></span>
+                  </template><!--
+                  --><span class="cell day"
+                      v-for="day in days"
+                      :key="day.timestamp"
+                      track-by="timestamp"
+                      v-bind:class="dayClasses(day)"
+                      @click="selectDate(day)">{{ day.date }}</span>
+                </div>
+                <div v-if="withButtons" class="vdp-datepicker__buttons-container">
+                  <button
+                    @click="clearDate();close()"
+                    class="vdp-datepicker__cancel-button">{{ cancelLabel }}
+                  </button>
+                  <button
+                    :disabled="!selectedDate"
+                    @click="confirmDateSelected"
+                    :class="{'vdp-datepicker__confirm-button' : true,
+                      'vdp-datepicker__confirm-button--disabled' : !selectedDate}"
+                    class="vdp-datepicker__confirm-button">{{ confirmLabel }}
+                  </button>
+                </div>
               </div>
           </div>
         </template>
@@ -89,23 +91,25 @@
                 <span>{{ previewMonth }} </span>
                 <span>{{ previewDay }} </span>
               </div>
-              <header>
-                  <span
-                      @click="previousYear"
-                      class="prev"
-                      v-bind:class="{ 'disabled' : previousYearDisabled(pageTimestamp) }">&lt;</span>
-                  <span @click="showYearCalendar" :class="allowedToShowView('year') ? 'up' : ''">{{ getPageYear() }}</span>
-                  <span
-                      @click="nextYear"
-                      class="next"
-                      v-bind:class="{ 'disabled' : nextYearDisabled(pageTimestamp) }">&gt;</span>
-              </header>
-              <span class="cell month"
-                  v-for="month in months"
-                  :key="month.timestamp"
-                  track-by="timestamp"
-                  v-bind:class="{ 'selected': month.isSelected, 'disabled': month.isDisabled }"
-                  @click.stop="selectMonth(month)">{{ month.month }}</span>
+              <div class="vdp-datepicker__calendar-container">
+                <header>
+                    <span
+                        @click="previousYear"
+                        class="prev"
+                        v-bind:class="{ 'disabled' : previousYearDisabled(pageTimestamp) }">&lt;</span>
+                    <span @click="showYearCalendar" :class="allowedToShowView('year') ? 'up' : ''">{{ getPageYear() }}</span>
+                    <span
+                        @click="nextYear"
+                        class="next"
+                        v-bind:class="{ 'disabled' : nextYearDisabled(pageTimestamp) }">&gt;</span>
+                </header>
+                <span class="cell month"
+                    v-for="month in months"
+                    :key="month.timestamp"
+                    track-by="timestamp"
+                    v-bind:class="{ 'selected': month.isSelected, 'disabled': month.isDisabled }"
+                    @click.stop="selectMonth(month)">{{ month.month }}</span>
+              </div>
           </div>
         </template>
 
@@ -118,20 +122,22 @@
                 <span>{{ previewMonth }} </span>
                 <span>{{ previewDay }} </span>
               </div>
-              <header>
-                  <span @click="previousDecade" class="prev"
-                      v-bind:class="{ 'disabled' : previousDecadeDisabled(pageTimestamp) }">&lt;</span>
-                  <span>{{ getPageDecade() }}</span>
-                  <span @click="nextDecade" class="next"
-                      v-bind:class="{ 'disabled' : nextMonthDisabled(pageTimestamp) }">&gt;</span>
-              </header>
-              <span
-                  class="cell year"
-                  v-for="year in years"
-                  :key="year.timestamp"
-                  track-by="timestamp"
-                  v-bind:class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
-                  @click.stop="selectYear(year)">{{ year.year }}</span>
+              <div class="vdp-datepicker__calendar-container">
+                <header>
+                    <span @click="previousDecade" class="prev"
+                        v-bind:class="{ 'disabled' : previousDecadeDisabled(pageTimestamp) }">&lt;</span>
+                    <span>{{ getPageDecade() }}</span>
+                    <span @click="nextDecade" class="next"
+                        v-bind:class="{ 'disabled' : nextMonthDisabled(pageTimestamp) }">&gt;</span>
+                </header>
+                <span
+                    class="cell year"
+                    v-for="year in years"
+                    :key="year.timestamp"
+                    track-by="timestamp"
+                    v-bind:class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
+                    @click.stop="selectYear(year)">{{ year.year }}</span>
+              </div>
           </div>
         </template>
   </div>
