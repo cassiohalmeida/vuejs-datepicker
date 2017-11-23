@@ -441,7 +441,6 @@ export default {
     showDayCalendar () {
       if (!this.allowedToShowView('day')) return false
 
-      this.close()
       this.showDayView = true
       if (!this.isInline) {
         document.addEventListener('click', this.clickOutside, false)
