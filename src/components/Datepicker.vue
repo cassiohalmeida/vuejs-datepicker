@@ -419,7 +419,6 @@ export default {
       }
     },
     cancelButton () {
-      this.clearDate()
       this.close()
       this.$emit('cancelButtonClicked')
     },
