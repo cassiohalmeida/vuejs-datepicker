@@ -434,6 +434,10 @@ export default {
      * @return {mixed} [description]
      */
     showCalendar () {
+      if (this.withPreview && this.selectedDate) {
+        const date = new Date(this.selectedDate)
+        this.updatePreview(date, true)
+      }
       if (this.disabledPicker || this.isInline) {
         return false
       }
@@ -524,12 +528,20 @@ export default {
       this.$emit('input', null)
       this.$emit('cleared')
     },
-    updatePreview (selected) {
-      const previewDate = new Date(selected.timestamp)
-      this.previewYear = this.currYear
-      this.previewDayName = DateUtils.getDayNameAbbr(previewDate, this.translation.days)
-      this.previewMonth = DateUtils.getMonthNameAbbr(this.pageDate.getMonth(), this.translation.months.abbr)
-      this.previewDay = previewDate.getDate()
+    updatePreview (selected, isDefault) {
+      if (!isDefault) {
+        const previewDate = new Date(selected.timestamp)
+        this.previewYear = this.currYear
+        this.previewDayName = DateUtils.getDayNameAbbr(previewDate, this.translation.days)
+        this.previewMonth = DateUtils.getMonthNameAbbr(this.pageDate.getMonth(), this.translation.months.abbr)
+        this.previewDay = previewDate.getDate()
+      } else {
+        const previewDate = selected
+        this.previewYear = this.currYear
+        this.previewDayName = DateUtils.getDayNameAbbr(previewDate, this.translation.days)
+        this.previewMonth = DateUtils.getMonthNameAbbr(this.pageDate.getMonth(), this.translation.months.abbr)
+        this.previewDay = previewDate.getDate()
+      }
     },
     clearPreview () {
       this.previewYear = ''
@@ -547,7 +559,7 @@ export default {
       }
       if (this.withButtons) {
         this.setTempDate(day.timestamp)
-        this.updatePreview(day)
+        this.updatePreview(day, false)
       } else {
         this.setDate(day.timestamp)
         if (this.isInline) {
@@ -962,7 +974,6 @@ export default {
     init () {
       if (this.value) {
         this.setValue(this.value)
-        this.updatePreview(new Date(this.value))
       }
       if (this.isInline) {
         this.setInitialView()

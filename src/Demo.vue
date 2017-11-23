@@ -229,7 +229,7 @@
 
     <div class="example">
       <h3>With Ok and Cancel button</h3>
-      <datepicker :withPreview="true" :withButtons="true" :cancelLabel="'Cancel'" :confirmLabel="'Ok'"></datepicker>
+      <datepicker :withPreview="true" :withButtons="true" v-model="defaultValue" :cancelLabel="'Cancel'" :confirmLabel="'Ok'"></datepicker>
       <code>
         &lt;datepicker :minimumView="'month'" :maximumView="'year'" :initialView="'year'"&gt;&lt;/datepicker&gt;
       </code>
@@ -254,6 +254,7 @@ export default {
   data () {
     return {
       format: 'd MMMM yyyy',
+      defaultValue: '1989-02-14',
       disabled: {},
       openDate: null,
       disabledFn: {
