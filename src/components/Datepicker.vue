@@ -450,7 +450,6 @@ export default {
     showMonthCalendar () {
       if (!this.allowedToShowView('month')) return false
 
-      this.close()
       this.showMonthView = true
       if (!this.isInline) {
         document.addEventListener('click', this.clickOutside, false)
@@ -459,7 +458,6 @@ export default {
     showYearCalendar () {
       if (!this.allowedToShowView('year')) return false
 
-      this.close()
       this.showYearView = true
       if (!this.isInline) {
         document.addEventListener('click', this.clickOutside, false)
