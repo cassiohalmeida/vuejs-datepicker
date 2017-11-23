@@ -99,12 +99,27 @@
                         @click="nextYear"
                         :class="nextClass"></span>
                 </header>
-                <span class="cell month"
+                <div>
+                  <span class="cell month"
                     v-for="month in months"
                     :key="month.timestamp"
                     track-by="timestamp"
                     v-bind:class="{ 'selected': month.isSelected, 'disabled': month.isDisabled }"
                     @click.stop="selectMonth(month)">{{ month.month }}</span>
+                </div>
+                <div v-if="withButtons" class="vdp-datepicker__buttons-container">
+                  <button
+                    @click="clearDate();close()"
+                    class="vdp-datepicker__cancel-button">{{ cancelLabel }}
+                  </button>
+                  <button
+                    :disabled="!selectedDate"
+                    @click="confirmDateSelected"
+                    :class="{'vdp-datepicker__confirm-button' : true,
+                      'vdp-datepicker__confirm-button--disabled' : !selectedDate}"
+                    class="vdp-datepicker__confirm-button">{{ confirmLabel }}
+                  </button>
+                </div>
               </div>
           </div>
         </template>
@@ -124,13 +139,28 @@
                     <span>{{ getPageDecade() }}</span>
                     <span @click="nextDecade" :class="nextClass"></span>
                 </header>
-                <span
+                <div>
+                  <span
                     class="cell year"
                     v-for="year in years"
                     :key="year.timestamp"
                     track-by="timestamp"
                     v-bind:class="{ 'selected': year.isSelected, 'disabled': year.isDisabled }"
                     @click.stop="selectYear(year)">{{ year.year }}</span>
+                </div>
+                <div v-if="withButtons" class="vdp-datepicker__buttons-container">
+                  <button
+                    @click="clearDate();close()"
+                    class="vdp-datepicker__cancel-button">{{ cancelLabel }}
+                  </button>
+                  <button
+                    :disabled="!selectedDate"
+                    @click="confirmDateSelected"
+                    :class="{'vdp-datepicker__confirm-button' : true,
+                      'vdp-datepicker__confirm-button--disabled' : !selectedDate}"
+                    class="vdp-datepicker__confirm-button">{{ confirmLabel }}
+                  </button>
+                </div>
               </div>
           </div>
         </template>
@@ -383,7 +413,7 @@ export default {
      */
     close () {
       this.showDayView = this.showMonthView = this.showYearView = false
-      if (!this.isInline || !this.withButtons) {
+      if (!this.isInline) {
         this.$emit('closed')
         document.removeEventListener('click', this.clickOutside, false)
       }
