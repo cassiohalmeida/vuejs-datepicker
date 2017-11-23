@@ -962,6 +962,7 @@ export default {
     init () {
       if (this.value) {
         this.setValue(this.value)
+        this.updatePreview(new Date(this.value))
       }
       if (this.isInline) {
         this.setInitialView()
