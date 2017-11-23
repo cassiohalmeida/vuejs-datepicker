@@ -65,7 +65,7 @@
                 </div>
                 <div v-if="withButtons" class="vdp-datepicker__buttons-container">
                   <button
-                    @click="clearDate();close()"
+                    @click="cancelButton()"
                     class="vdp-datepicker__cancel-button">{{ cancelLabel }}
                   </button>
                   <button
@@ -109,7 +109,7 @@
                 </div>
                 <div v-if="withButtons" class="vdp-datepicker__buttons-container">
                   <button
-                    @click="clearDate();close()"
+                    @click="cancelButton()"
                     class="vdp-datepicker__cancel-button">{{ cancelLabel }}
                   </button>
                   <button
@@ -150,7 +150,7 @@
                 </div>
                 <div v-if="withButtons" class="vdp-datepicker__buttons-container">
                   <button
-                    @click="clearDate();close()"
+                    @click="cancelButton()"
                     class="vdp-datepicker__cancel-button">{{ cancelLabel }}
                   </button>
                   <button
@@ -417,6 +417,11 @@ export default {
         this.$emit('closed')
         document.removeEventListener('click', this.clickOutside, false)
       }
+    },
+    cancelButton () {
+      this.clearDate()
+      this.close()
+      this.$emit('cancelButtonClicked')
     },
     resetDefaultDate () {
       if (this.selectedDate === null) {
