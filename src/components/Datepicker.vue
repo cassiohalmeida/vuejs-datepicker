@@ -420,6 +420,7 @@ export default {
     },
     cancelButton () {
       this.close()
+      this.selectedDate = null
       this.$emit('cancelButtonClicked')
     },
     resetDefaultDate () {
