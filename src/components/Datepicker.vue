@@ -482,7 +482,7 @@ export default {
 
       this.close()
       this.showDayView = true
-      if (!this.isInline) {
+      if (!this.isInline && !this.withButtons) {
         document.addEventListener('click', this.clickOutside, false)
       }
     },
@@ -491,7 +491,7 @@ export default {
 
       this.close()
       this.showMonthView = true
-      if (!this.isInline) {
+      if (!this.isInline && !this.withButtons) {
         document.addEventListener('click', this.clickOutside, false)
       }
     },
@@ -500,7 +500,7 @@ export default {
 
       this.close()
       this.showYearView = true
-      if (!this.isInline) {
+      if (!this.isInline && !this.withButtons) {
         document.addEventListener('click', this.clickOutside, false)
       }
     },
