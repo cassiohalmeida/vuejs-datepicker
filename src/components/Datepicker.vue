@@ -65,10 +65,12 @@
                 </div>
                 <div v-if="withButtons" class="vdp-datepicker__buttons-container">
                   <button
+                    type="button"
                     @click="cancelButton()"
                     class="vdp-datepicker__cancel-button">{{ cancelLabel }}
                   </button>
                   <button
+                    type="button"
                     :disabled="!selectedDate"
                     @click="confirmDateSelected"
                     :class="{'vdp-datepicker__confirm-button' : true,
@@ -109,10 +111,12 @@
                 </div>
                 <div v-if="withButtons" class="vdp-datepicker__buttons-container">
                   <button
+                    type="button"
                     @click="cancelButton()"
                     class="vdp-datepicker__cancel-button">{{ cancelLabel }}
                   </button>
                   <button
+                    type="button"
                     :disabled="!selectedDate"
                     @click="confirmDateSelected"
                     :class="{'vdp-datepicker__confirm-button' : true,
@@ -150,10 +154,12 @@
                 </div>
                 <div v-if="withButtons" class="vdp-datepicker__buttons-container">
                   <button
+                    type="button"
                     @click="cancelButton()"
                     class="vdp-datepicker__cancel-button">{{ cancelLabel }}
                   </button>
                   <button
+                    type="button"
                     :disabled="!selectedDate"
                     @click="confirmDateSelected"
                     :class="{'vdp-datepicker__confirm-button' : true,
