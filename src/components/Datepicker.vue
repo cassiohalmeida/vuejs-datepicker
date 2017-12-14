@@ -35,10 +35,10 @@
         <template v-if="allowedToShowView('day')">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showDayView" v-bind:style="calendarStyle">
               <div v-if="withPreview" class="vdp-datepicker__calendar-preview">
-                <span>{{ previewYear }} </span>
-                <span>{{ previewDayName }} </span>
-                <span>{{ previewMonth }} </span>
-                <span>{{ previewDay }} </span>
+                <span v-show="selectedDate">{{ previewYear }}</span>
+                <span v-show="selectedDate">{{ previewDayName }}</span>
+                <span v-show="selectedDate">{{ previewMonth }}</span>
+                <span v-show="selectedDate">{{ previewDay }}</span>
               </div>
               <div class="vdp-datepicker__calendar-container">
                 <header>
@@ -86,10 +86,10 @@
         <template v-if="allowedToShowView('month')">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showMonthView" v-bind:style="calendarStyle">
               <div v-if="withPreview" class="vdp-datepicker__calendar-preview">
-                <span>{{ previewYear }} </span>
-                <span>{{ previewDayName }} </span>
-                <span>{{ previewMonth }} </span>
-                <span>{{ previewDay }} </span>
+                <span v-show="selectedDate">{{ previewYear }}</span>
+                <span v-show="selectedDate">{{ previewDayName }}</span>
+                <span v-show="selectedDate">{{ previewMonth }}</span>
+                <span v-show="selectedDate">{{ previewDay }}</span>
               </div>
               <div class="vdp-datepicker__calendar-container">
                 <header>
@@ -132,10 +132,10 @@
         <template v-if="allowedToShowView('year')">
           <div :class="[calendarClass, 'vdp-datepicker__calendar']" v-show="showYearView" v-bind:style="calendarStyle">
               <div v-if="withPreview" class="vdp-datepicker__calendar-preview">
-                <span>{{ previewYear }} </span>
-                <span>{{ previewDayName }} </span>
-                <span>{{ previewMonth }} </span>
-                <span>{{ previewDay }} </span>
+                <span v-show="selectedDate">{{ previewYear }}</span>
+                <span v-show="selectedDate">{{ previewDayName }}</span>
+                <span v-show="selectedDate">{{ previewMonth }}</span>
+                <span v-show="selectedDate">{{ previewDay }}</span>
               </div>
               <div class="vdp-datepicker__calendar-container">
                 <header>
